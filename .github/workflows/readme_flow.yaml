@@ -7,17 +7,15 @@ jobs:
     name: Update README from template
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Run Action
         id: update_readme
         uses: ./
       - name: Commit and push changes
-        run: |
-          git config --global user.name "gitignore-xav"
-          git config --global user.email "xavmcc3@gmail.com"
-
-          git add -A
-          git commit -m "README action"
-          git push
+        uses: test-room-7/action-update-file@v1
+        with:
+            file-path: README.md
+            commit-msg: Update readme
+            github-token: ${{ secrets.GH_TOKEN }}
       - name: Print Result
         run: echo "Did something"
