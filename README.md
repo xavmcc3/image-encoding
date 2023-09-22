@@ -16,7 +16,7 @@ Run it with `python main.py -p <process> -u <url>`, where `<process>` is the typ
  - `threshold` convert the image to binary
  - `hex_scale` idk
 
-
+Any output is stored in `data.txt` in the same directory.
 
 ## About
 Honestly I'm pretty proud of this shit 'cause it uses cool-ass python decorator functions so if I wanna add an encoding type I can just be like 
