@@ -42,4 +42,4 @@ List of things I wanna add or change with this project. Lowkey the architexture 
  - [ ] Cmd option for custom output filenames
  - [ ] fix dependencies section
 
-© Xavier McClurkin, 2023 👍
+© Xav, 2023 👍
