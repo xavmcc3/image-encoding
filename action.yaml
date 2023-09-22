@@ -1,0 +1,18 @@
+name: 'Readme Updater'
+description: 'A GitHub Action that updates the README according to a template'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Generate Requirements
+      run: pip install pipreqs ; python -m pipreqs .
+      shell: bash
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
+      shell: bash
+    - name: Generate Readme
+      run: python readme.py
+      shell: bash
