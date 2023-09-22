@@ -25,4 +25,4 @@ def shitty_process():
 ```
 and it automatically adds it to `README.md`. The way I did that was pretty sick too low key. It takes a bunch of parameters in a dictionary and replaces them based off name so I can just add more variables to the file n shit.
 
-© 2023 {! name !} 👍
+© {! name !}, 2023 👍
