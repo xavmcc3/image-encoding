@@ -1,10 +1,13 @@
-from clrprint import clrprint
+from meta.readme import update_readme
+
 import urllib.request
 import numpy as np
-import cv2 as cv
-import argparse
 import sys
 import os
+
+from clrprint import clrprint
+import cv2 as cv
+import argparse
 
 #region utils
 def image_from_url(url):
@@ -60,6 +63,14 @@ def show_image(image):
     
     cv.waitKey(0)
     cv.destroyAllWindows()
+
+def get_properties():
+    properties = { 'name': 'Xav' }
+    properties['options'] = ""
+    for option in OPTIONS:
+        properties['options'] += f" - `{option}` {OPTIONS[option]['meta']}\n"
+    properties['options'] = properties['options'][:-1]
+    return properties
 #endregion
 
 
@@ -132,26 +143,31 @@ def hex_process(image, out, readable=True):
 
 #region options
 OPTIONS = {}
-def option(func):
-    OPTIONS[func.__name__] = func
-    def inner(img):
-        return func(img)
-    return inner
+def option(meta=""):
+    def decorator(func):
+        OPTIONS[func.__name__] = {
+            'method': func,
+            'meta': meta
+        }
+        def wrapper(img):
+            return func(img)
+        return wrapper
+    return decorator
 
-@option
+@option('aaaaaaaaa')
 def ascii_color(img):
     size = os.get_terminal_size()
     img = resize_for(image, (size.columns, size.lines - 1))
-    img = ascii_process(img, 'data.txt' if args.file is None else args.file)
+    img = ascii_process(img, 'data.txt')
     return img
 
-@option
+@option('convert the image to binary')
 def threshold(img):
     img = resize(img, 500)
     img = threshold_process(img, 'data.txt', 190)
     show_image(img)
     
-@option
+@option('idk')
 def hex_scale(img):
     img = resize(img, 500)
     img = hex_process(img, 'data.txt')
@@ -162,9 +178,9 @@ def hex_scale(img):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     options = list(OPTIONS.keys())
+    update_readme(get_properties())
     
     parser.add_argument('--process', '-p', choices=options)
-    parser.add_argument('--file', '-f')
     parser.add_argument('--url', '-u')
     args = parser.parse_args()
 
@@ -172,7 +188,7 @@ if __name__ == "__main__":
     image = get_image(path)
     
     if args.process != None:
-        OPTIONS[args.process](image)
+        OPTIONS[args.process]['method'](image)
         exit()
         
     clrprint("[", "Argument Error", "] No process specified", sep="", clr="w,r,w")

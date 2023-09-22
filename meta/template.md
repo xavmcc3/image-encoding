@@ -12,9 +12,7 @@ Just clone the repo, dawg. The full command is `git clone https://github.com/xav
 
 Run it with `python main.py -p <process> -u <url>`, where `<process>` is the type of encoding to use and `<url>` is the url to the image. The options are below in case you don't wanna read the code.
 
- - `ascii_color` aaaaaaaaa
- - `threshold` convert the image to binary
- - `hex_scale` idk
+{! options !}
 
 ## About
 Honestly I'm pretty proud of this shit 'cause it uses cool-ass python decorator functions so if I wanna add an encoding type I can just be like 
@@ -25,4 +23,4 @@ def shitty_process():
 ```
 and it automatically adds it to `README.md`. The way I did that was pretty sick too low key. It takes a bunch of parameters in a dictionary and replaces them based off name so I can just add more variables to the file n shit.
 
-© 2023 Xav 👍
+© 2023 {! name !} 👍
