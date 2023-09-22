@@ -108,6 +108,8 @@ def ascii_process(image, out, print_data=True, filename='out'):
         sys.stdout.write(output_data)
     
     return image
+
+
 #endregion
 
 #region options
