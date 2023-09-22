@@ -1,6 +1,6 @@
-![image](banner.png)
+![image](src/banner.png)
 
-# <image src="logo.png" width=37 style="vertical-align: middle;"> Image Encoding
+# <image src="src/logo.png" width=37 style="vertical-align: middle;"> Image Encoding
 
 Yoo this is a sick python program to encode images. 🥵🥵
 
