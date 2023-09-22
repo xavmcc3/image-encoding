@@ -4,12 +4,20 @@ on: [push]
 jobs:
   get-num-square:
     runs-on: ubuntu-latest
-    name: Updates the Readme
+    name: Update README from template
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run Action
         id: update_readme
         uses: ./
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "xavmcc3"
+          git config --global user.email "xavmcc3@gmail.com"
+
+          git add -A
+          git commit -m "README action"
+          git push
       - name: Print Result
         run: echo "Did something"
