@@ -1,4 +1,4 @@
-from encoder import get_properties
+from python.encoder import get_properties
 from clrprint import clrprint
 import re
 

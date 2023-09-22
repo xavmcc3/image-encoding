@@ -14,5 +14,5 @@ runs:
       run: pip install -r requirements.txt ; pip install opencv-python
       shell: bash
     - name: Generate Readme
-      run: python python/readme.py
+      run: python readme.py
       shell: bash
