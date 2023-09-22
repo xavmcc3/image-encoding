@@ -67,33 +67,35 @@ def show_image(image):
 def image_process(process):
     def do_process(image, out_file, *args, **kwargs):
         with open(out_file, 'w') as out:
-            return process(image, out, *args, **kwargs, filename=out_file)
+            height, width, *_ = image.shape
+            clrprint("Dimensions are ", width, "x", height, sep="", clr="w,m,w,m,w")
+            
+            result =  process(image, out, *args, **kwargs)
+            clrprint("Wrote to '", out_file, "'", sep="", clr="w,b,w")
+            return result
     return do_process
 
 @image_process
-def threshold_process(image, out, threshold=190, readable=True, filename='out'):
+def threshold_process(image, out, threshold=190, readable=True):
     end_char = ' ' if readable else ''
     height, width, *_ = image.shape
     image = image.copy()
     
-    clrprint("Dimensions are ", width, "x", height, sep="", clr="w,m,w,m,w")
     for y in range(height):
         for x in range(width):
             image[y, x] = 255 if image[y, x][0] > threshold else 0
             out.write(f"{1 if image[y, x][0] > threshold else 0}{end_char}")
         if readable: out.write('\n')
     
-    clrprint("Wrote to '", filename, "'", sep="", clr="w,b,w")
     return image
 
 @image_process
-def ascii_process(image, out, print_data=True, filename='out'):
+def ascii_process(image, out, print_data=True):
     pixel_map = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
     height, width, *_ = image.shape
     image = image.copy()
     output_data = ""
     
-    clrprint("Dimensions are ", width, "x", height, sep="", clr="w,m,w,m,w")
     for y in range(height):
         for x in range(width):
             brightness = int(sum(image[y, x]) / len(image[y, x]) / 255 * (len(pixel_map) - 1))
@@ -102,14 +104,30 @@ def ascii_process(image, out, print_data=True, filename='out'):
     output_data = output_data[:-1] + '\033[0m'
     
     out.write(output_data)
-    clrprint("Wrote to '", filename, "'", sep="", clr="w,b,w")
-    
     if print_data:
         sys.stdout.write(output_data)
+        print()
     
     return image
 
-
+@image_process
+def hex_process(image, out, readable=True):
+    end_char = ' ' if readable else ''
+    height, width, *_ = image.shape
+    image = image.copy()
+    max_digits = 2
+    
+    max_val = 16 ** max_digits
+    
+    for y in range(height):
+        for x in range(width):
+            brightness = sum(image[y, x]) / len(image[y, x])
+            image[y, x] = [brightness] * 3
+            
+            int_brightness = int(brightness / 255 * max_val)
+            out.write(f"{str(hex(int_brightness))[2:]}{end_char}")
+        if readable: out.write("\n")
+    return image
 #endregion
 
 #region options
@@ -131,6 +149,12 @@ def ascii_color(img):
 def threshold(img):
     img = resize(img, 500)
     img = threshold_process(img, 'data.txt', 190)
+    show_image(img)
+    
+@option
+def hex_scale(img):
+    img = resize(img, 500)
+    img = hex_process(img, 'data.txt')
     show_image(img)
 #endregion
 
