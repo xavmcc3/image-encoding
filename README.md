@@ -1,6 +1,6 @@
-![image](src/banner.png)
+![image](img/banner.png)
 
-# <image src="src/logo.png" width=37 style="vertical-align: middle;"> Image Encoding
+# <image src="img/logo.png" width=37 style="vertical-align: middle;"> Image Encoding
 
 Yoo this is a sick python program to encode images. 🥵🥵
 
@@ -34,10 +34,12 @@ and it automatically adds it to `README.md`. The way I did that was pretty sick 
 List of things I wanna add or change with this project. Lowkey the architexture kinda slaps.
  - [ ] Automatically hide this part of the readme if there's nothing there
  - [ ] render the ascii image to some sort of canvas (probably with PIL)
+ - [ ] make the readme stuff somehow get the `@process`'s from *every* file
  - [x] refactor readme stuff (2 files that could be one imo)
  - [ ] setup the readme thing to update on git push instead
  - [ ] file inputs ? i guess?? kinda cringe tho
+ - [ ] process-dependent parameters
  - [ ] Cmd option for custom output filenames
  - [ ] fix dependencies section
 
-© Xav, 2023 👍
+© Xavier McClurkin, 2023 👍
