@@ -14,5 +14,5 @@ runs:
       run: pip install -r requirements.txt
       shell: bash
     - name: Generate Readme
-      run: python readme.py
+      run: python python/readme.py
       shell: bash
