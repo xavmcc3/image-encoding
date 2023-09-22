@@ -11,5 +11,5 @@ jobs:
       - name: Fetch num squared
         id: get_square
         uses: ./
-      - name: Print the square
+      - name: Print Result
         run: echo "Did something"

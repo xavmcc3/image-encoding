@@ -8,7 +8,7 @@ runs:
       with:
         python-version: '3.11'
     - name: Generate Requirements
-      run: pip install pipreqs ; python -m pipreqs .
+      run: pip install pipreqs ; python -m pipreqs.pipreqs .
       shell: bash
     - name: Install Dependencies
       run: pip install -r requirements.txt
