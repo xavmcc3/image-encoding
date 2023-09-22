@@ -11,7 +11,7 @@ runs:
       run: pip install pipreqs ; python -m pipreqs.pipreqs .
       shell: bash
     - name: Install Dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r requirements.txt ; pip install opencv-python
       shell: bash
     - name: Generate Readme
       run: python python/readme.py
