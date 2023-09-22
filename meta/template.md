@@ -25,4 +25,11 @@ def shitty_process():
 ```
 and it automatically adds it to `README.md`. The way I did that was pretty sick too low key. It takes a bunch of parameters in a dictionary and replaces them based off name so I can just add more variables to the file n shit.
 
+## Todo
+List of things I wanna add or change with this project. Lowkey the architexture kinda slaps.
+ - [ ] Automatically hide this part of the readme if there's nothing there
+ - [ ] render the ascii image to some sort of canvas (probably with PIL)
+ - [ ] file inputs ? i guess?? kinda cringe tho
+ - [ ] Cmd option for custom output filenames
+
 © {! name !}, 2023 👍

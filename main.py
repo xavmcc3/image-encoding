@@ -73,24 +73,32 @@ def get_properties():
     return properties
 #endregion
 
+OPTIONS = {}
+def process(metadata=""):
+    def decorator(process):
+        def wrapper(image, out_file, *args, **kwargs):
+            with open(out_file, 'w') as out:
+                height, width, *_ = image.shape
+                clrprint("Dimensions are ", width, "x", height, sep="", clr="w,m,w,m,w")
+                
+                result = process(image, out, *args, **kwargs)
+                clrprint("Wrote to '", out_file, "'", sep="", clr="w,b,w")
+                return result
+        OPTIONS[process.__name__] = {
+            'method': wrapper,
+            'meta': metadata
+        }
+        return wrapper
+    return decorator
 
 #region processes
-def image_process(process):
-    def do_process(image, out_file, *args, **kwargs):
-        with open(out_file, 'w') as out:
-            height, width, *_ = image.shape
-            clrprint("Dimensions are ", width, "x", height, sep="", clr="w,m,w,m,w")
-            
-            result =  process(image, out, *args, **kwargs)
-            clrprint("Wrote to '", out_file, "'", sep="", clr="w,b,w")
-            return result
-    return do_process
-
-@image_process
+@process("Convert the image to pure black or pure white binary.")
 def threshold_process(image, out, threshold=190, readable=True):
+    image = image.copy()
+    image = resize(image, 500)
+    
     end_char = ' ' if readable else ''
     height, width, *_ = image.shape
-    image = image.copy()
     
     for y in range(height):
         for x in range(width):
@@ -100,11 +108,14 @@ def threshold_process(image, out, threshold=190, readable=True):
     
     return image
 
-@image_process
+@process('Convert the image to colored ascii characters.')
 def ascii_process(image, out, print_data=True):
+    image = image.copy()
+    size = os.get_terminal_size()
+    image = resize_for(image, (size.columns, size.lines - 1))
+    
     pixel_map = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
     height, width, *_ = image.shape
-    image = image.copy()
     output_data = ""
     
     for y in range(height):
@@ -121,11 +132,13 @@ def ascii_process(image, out, print_data=True):
     
     return image
 
-@image_process
+@process('Convert the image to black and white with greyscale values.')
 def hex_process(image, out, readable=True):
+    image = image.copy()
+    image = resize(image, 500)
+    
     end_char = ' ' if readable else ''
     height, width, *_ = image.shape
-    image = image.copy()
     max_digits = 2
     
     max_val = 16 ** max_digits
@@ -139,39 +152,6 @@ def hex_process(image, out, readable=True):
             out.write(f"{str(hex(int_brightness))[2:]}{end_char}")
         if readable: out.write("\n")
     return image
-#endregion
-
-#region options
-OPTIONS = {}
-def option(meta=""):
-    def decorator(func):
-        OPTIONS[func.__name__] = {
-            'method': func,
-            'meta': meta
-        }
-        def wrapper(img):
-            return func(img)
-        return wrapper
-    return decorator
-
-@option('aaaaaaaaa')
-def ascii_color(img):
-    size = os.get_terminal_size()
-    img = resize_for(image, (size.columns, size.lines - 1))
-    img = ascii_process(img, 'data.txt')
-    return img
-
-@option('convert the image to binary')
-def threshold(img):
-    img = resize(img, 500)
-    img = threshold_process(img, 'data.txt', 190)
-    show_image(img)
-    
-@option('idk')
-def hex_scale(img):
-    img = resize(img, 500)
-    img = hex_process(img, 'data.txt')
-    show_image(img)
 #endregion
 
 
@@ -188,7 +168,9 @@ if __name__ == "__main__":
     image = get_image(path)
     
     if args.process != None:
-        OPTIONS[args.process]['method'](image)
+        image = OPTIONS[args.process]['method'](image, 'data.txt')
+        
+        show_image(image)
         exit()
         
     clrprint("[", "Argument Error", "] No process specified", sep="", clr="w,r,w")
