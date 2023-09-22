@@ -13,7 +13,7 @@ jobs:
         uses: ./
       - name: Commit and push changes
         run: |
-          git config --global user.name "xavmcc3"
+          git config --global user.name "gitignore-xav"
           git config --global user.email "xavmcc3@gmail.com"
 
           git add -A
