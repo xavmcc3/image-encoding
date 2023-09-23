@@ -6,6 +6,7 @@ import sys
 import cv2 as cv
 import argparse
 import json
+import PIL
 
 OPTIONS = {}
 
@@ -32,6 +33,9 @@ def get_image(path, is_url=True):
 def show_image(image):
     if image is None:
         raise Exception("Image can't be none.")
+    if type(image) is PIL.Image.Image:
+        image.show()
+        return
     cv.imshow("image", resize(image, 500))
     
     cv.waitKey(0)
@@ -80,7 +84,7 @@ def init_cli():
     parser.add_argument('--url', '-u')
     args = parser.parse_args()
 
-    path = "https://cdn.dotmaui.com/ph/?size=251x250&bg=FF0000&color=FFCC00" if args.url is None else args.url
+    path = "https://cdn.dotmaui.com/ph/?size=250x251&bg=FF0000&color=FFCC00" if args.url is None else args.url
     image = get_image(path)
     
     if args.process != None:

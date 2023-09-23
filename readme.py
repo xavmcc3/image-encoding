@@ -2,8 +2,8 @@ from python.encoder import get_properties
 from clrprint import clrprint
 import re
 
-import main # NOTE This forces the list of processes to update
-# TODO --> Link to git push somehow
+# NOTE This forces the list of processes to update
+import main
 
 def update_readme(property_values):
     with open('meta/template.md', 'r', encoding='utf8') as f:
