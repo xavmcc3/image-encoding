@@ -15,9 +15,9 @@ It has a few dependencies but idk what they are so good luck 👍🍆💦
 
 Run it with `python main.py -p <process> -u <url>`, where `<process>` is the type of encoding to use and `<url>` is the url to the image. The options are below in case you don't wanna read the code.
 
- - `threshold_process` Convert the image to pure black or pure white binary.
- - `ascii_process` Convert the image to colored ascii characters.
- - `hex_process` Convert the image to black and white with greyscale values.
+ - `threshold_image` Convert the image to pure black or pure white binary.
+ - `ascii_image` Convert the image to colored ascii characters.
+ - `grey_hex_image` Convert the image to black and white with greyscale values.
 
 Any output is stored in `data.txt` in the same directory.
 
@@ -32,14 +32,14 @@ and it automatically adds it to `README.md`. The way I did that was pretty sick 
 
 ## Todo
 List of things I wanna add or change with this project. Lowkey the architexture kinda slaps.
- - [ ] Automatically hide this part of the readme if there's nothing there
  - [ ] render the ascii image to some sort of canvas (probably with PIL)
- - [ ] make the readme stuff somehow get the `@process`'s from *every* file
- - [x] refactor readme stuff (2 files that could be one imo)
- - [ ] setup the readme thing to update on git push instead
- - [ ] file inputs ? i guess?? kinda cringe tho
- - [ ] process-dependent parameters
  - [ ] Cmd option for custom output filenames
+ - [ ] file inputs ? i guess?? kinda cringe tho
+ - [ ] make it so I don't have to git pull after every push
+ - [ ] process-dependent parameters
+ - [ ] fix longer width ascii images (cmd display only)
+ - [ ] generate this section from the `json` file
  - [ ] fix dependencies section
+ - [ ] create `res` folder
 
 © Xavier McClurkin, 2023 👍
